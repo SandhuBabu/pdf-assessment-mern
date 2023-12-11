@@ -1,0 +1,47 @@
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2em;
+    height: 5em;
+    background-color: var(--primary-clr);
+    color: #fff;
+}
+
+header a {
+    color: #fff;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1em;
+}
+
+.nav-links a {
+    text-decoration: underline;
+}
+
+.nav-links p {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.nav-links p button {
+    position: absolute;
+    left: 50%;
+    visibility: hidden;
+    background-color: #8c94f1;
+    color: #fff;
+    transform: translateY(3em) translateX(-50%);
+    transition: transform 200ms;
+}
+
+.nav-links p button:hover {
+    background-color: #636ccb;
+}
+
+.nav-links p:hover button.btn {
+    visibility: visible;
+    transform: translateY(1.75em) translateX(-50%);
+}

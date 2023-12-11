@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;500;600;700;800;900&family=Roboto:wght@300;400;500;700&display=swap');
+
+:root {
+  --primary-clr: #767fe9;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  outline: none;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.container {
+  min-height: calc(100vh - 9em);
+  padding: 0 2em;
+  margin: 2em 0;
+  position: relative;
+}
+
+.pages {
+  padding: 0 3em;
+  margin: 2em 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2em;
+}
+
+.page {
+  margin: 0 auto;
+}
+
+
+.select-page {
+  width: 1em;
+  height: 1em;
+}
+
+.heading {
+  text-align: center;
+  margin: 2em 0;
+  color: var(--primary-clr);
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.btn {
+  height: 3em;
+  padding: 1em 2em;
+  font-weight: 600;
+}
+
+.btn-sec {
+  border: 2px solid var(--primary-clr);
+  background: transparent;
+  color: var(--primary-clr);
+}
+
+.btn-sec:hover {
+  background-color: var(--primary-clr);
+  color: #fff;
+}
+
+button.btn-primary {
+  border-radius: 5px;
+  border: none;
+  margin-top: 2em;
+  background-color: var(--primary-clr);
+  color: #fff;
+}
+
+button.btn:disabled,
+button.btn:disabled:hover {
+  background-color: rgba(192, 196, 240, 0.832);
+  cursor: not-allowed;
+}
+
+button.btn--primary:hover {
+  background-color: rgba(118, 128, 233, 0.763);
+}
+
+.file-li {
+  min-width: 30em;
+  margin-top: 1em;
+  cursor: pointer;
+  list-style: decimal;
+}
+
+@media only screen and (max-width: 1224px) {
+  .pages {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .pages {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (max-width: 771px) {
+  .pages {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
