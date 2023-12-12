@@ -3,6 +3,13 @@ import { useLocation, useNavigate } from 'react-router'
 import { Page } from 'react-pdf';
 import PdfViewer from './PdfViewer';
 
+/**
+ * 
+ * page for result of pdf operation and 
+ * for viewing previously edited files
+ * 
+ */
+
 const Success = () => {
 
     const navigate = useNavigate();
@@ -12,7 +19,6 @@ const Success = () => {
     const [pages, setPages] = useState(null)
 
     useEffect(() => {
-        console.log(file);
         if (!file) {
             return navigate("/")
         }

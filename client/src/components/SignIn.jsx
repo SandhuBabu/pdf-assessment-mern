@@ -23,6 +23,10 @@ const SignIn = () => {
 
     const handleSubmit = useCallback(async (e) => {
         e.preventDefault()
+        if(!userData?.email || !userData?.password) {
+            return
+        }
+        
         const { error, data } = await signin(userData)
         if (error) {
             alert(data?.message)

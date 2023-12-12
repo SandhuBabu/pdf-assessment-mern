@@ -1,3 +1,12 @@
+/**
+ * 
+ * context for saving user details
+ * useUser() is a custom hook to access user data in other components
+ * 
+ * can change user details by function :  changeUser(details)
+ * 
+ */
+
 import React, { createContext, useContext, useState } from 'react'
 
 const UserContext = createContext()

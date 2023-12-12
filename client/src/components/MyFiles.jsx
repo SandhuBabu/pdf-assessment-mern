@@ -6,23 +6,31 @@ import { getMyFiles } from '../service'
 const MyFiles = () => {
     const [files, setFiles] = useState([])
     const navigate = useNavigate();
+    const controller = new AbortController()
 
     useEffect(() => {
         handleGetFiles()
+
+        return () => {
+            // stops api call when unmounted
+            controller.abort()
+        }
     }, [])
 
     const handleGetFiles = useCallback(async () => {
-        const { data, error } = await getMyFiles();
+        const { data, error } = await getMyFiles(controller.signal);
         if (error)
             return
 
         setFiles(data)
     }, [])
 
+    // extracts file name from url of file
     const getFileName = useCallback((filename) => {
         return filename.replace('http://localhost:5000/uploads/', '').slice(0, -28).replaceAll('-', ' ').replaceAll('_', ' ')
     }, [files])
 
+    // extracts date of creation of file from url of file
     const getFileCreatedDate = useCallback((filename) => {
         const date = filename.replace('http://localhost:5000/uploads/', '')
             .slice(-28)

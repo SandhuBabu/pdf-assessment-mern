@@ -1,3 +1,5 @@
+// 404 error component
+
 export const NotFound = () => {
   return (
     <div className='container'>

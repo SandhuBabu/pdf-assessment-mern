@@ -23,6 +23,9 @@ const SignUp = () => {
 
     const handleSubmit = useCallback(async (e) => {
         e.preventDefault()
+        if (!user?.email || !user?.password)
+            return
+        
         const { data, error } = await signup(userData)
         console.log(error, data);
         if (error) {

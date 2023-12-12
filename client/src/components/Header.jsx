@@ -24,7 +24,7 @@ const Header = () => {
             <button
                 style={{ color: '#fff' }}
                 onClick={() => {
-                    if (user?.emaik) {
+                    if (user?.email) {
                         navigate('/')
                     }
                 }}>

@@ -1,6 +1,11 @@
 const router = require('express').Router();
 const { handleRemove } = require('./services/service');
-const { createUser, signin, getUserFiles, logout } = require('./services/userService');
+const {
+    createUser,
+    signin,
+    getUserFiles,
+    logout
+} = require('./services/userService');
 
 
 router.post('/signup', (req, res) => {

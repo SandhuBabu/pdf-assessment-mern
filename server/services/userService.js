@@ -15,13 +15,18 @@ const createUser = async (req, res) => {
             return res.status(400).json({ message: "Email already registered" })
         }
 
+        // creating encrypted password
         const passwordHash = await createHash(password)
+
+        // creating jwt token for user
         const token = createJwtToken(email)
 
         const user = new UserModal()
         user.email = email
         user.password = passwordHash
         user.token = token
+
+        // save new user in db
         const savedUser = await user.save();
 
         return res.json({
@@ -43,7 +48,9 @@ const signin = async (req, res) => {
             return res.status(401).json({ message: "Invalid credentials" })
         }
 
+        // create new jwt token
         const token = createJwtToken(user.email)
+        // save new token in db
         await UserModal.updateOne({ _id: user.id }, { token: token })
         return res.json({ ...user, token })
     } catch {
@@ -53,16 +60,21 @@ const signin = async (req, res) => {
 
 const logout = async (req, res) => {
     try {
+
+        // checks for jwt token from request headers
         const token = req.headers['authorization']
         if (!token || !token.startsWith('Bearer')) {
             return res.status(401).json({ message: 'Unauthorized' })
         }
 
+        // check for user with given jwt token
         const user = await UserModal.findOne({ token: token.split('Bearer ')[1] }).exec()
 
         if (!user) {
             return res.status(401).json({ message: "Invalid credentials" })
         }
+
+        // if user exists set token to null
         await UserModal.updateOne({ _id: user._id }, { token: null })
         return res.json({ message: 'success' })
     } catch (error) {
@@ -70,11 +82,13 @@ const logout = async (req, res) => {
     }
 }
 
+// returns all previously edited file urls 
 const getUserFiles = async (req, res) => {
     const userdata = await UserModal.findOne({ email: req.user.email }).exec()
     return res.json(userdata.files)
 }
 
+// function for password encryption
 const createHash = async (password) => {
     const salt = 10;
     try {
@@ -87,6 +101,7 @@ const createHash = async (password) => {
 
 }
 
+// function to get user with email id and password
 const checkUser = async (email, password) => {
     try {
         const user = await UserModal.findOne({ email: email }).exec()
@@ -103,6 +118,7 @@ const checkUser = async (email, password) => {
     }
 }
 
+// verfiy token in headers to give access to apis
 const verifyToken = async (token) => {
     try {
         const user = jwt.verify(token, 'private_key87934jnkjsahidhu7q2eSDSDA')
@@ -116,6 +132,7 @@ const verifyToken = async (token) => {
     }
 }
 
+// function to generate a jwt token
 const createJwtToken = (email) => {
     return jwt.sign({ email: email }, "private_key87934jnkjsahidhu7q2eSDSDA")
 }

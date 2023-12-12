@@ -25,9 +25,10 @@ const Form = () => {
     const handleSubmit = useCallback(async (e) => {
         e.preventDefault()
 
+        // api req body
         const body = {
             file,
-            pages: pagesToRemove.sort((a, b) => a - b).join(',')
+            pages: pagesToRemove.sort((a, b) => a - b).join(',') // page numbers to remove seperated by comma
         }
 
         const { data, error } = await uploadFile(body)
@@ -41,11 +42,11 @@ const Form = () => {
     }, [pagesToRemove])
 
     const handleCheck = useCallback((index) => {
-        if (pagesToRemove.indexOf(index - 1) === -1) {
-            const page = index - 1;
-            setPagesToRemove(prev => [...prev, page])
+        // page no is counting from 0 to n
+        if (pagesToRemove.indexOf(index) === -1) {
+            setPagesToRemove(prev => [...prev, index])
         } else {
-            let newValues = pagesToRemove.filter(i => i != index - 1)
+            let newValues = pagesToRemove.filter(i => i != index)
             setPagesToRemove([...newValues])
         }
     }, [pagesToRemove])
@@ -79,7 +80,7 @@ const Form = () => {
                                 <input
                                     type="checkbox"
                                     className='select-page'
-                                    onChange={() => handleCheck(index + 1)}
+                                    onChange={() => handleCheck(index)}
                                 />
                             </p>
                         </div>

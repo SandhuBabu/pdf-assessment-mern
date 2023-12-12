@@ -47,7 +47,9 @@ function App() {
       <Routes>
         <Route path='/signup' element={<SignUp />} />
         <Route path='/signin' element={<SignIn />} />
+        
         {
+          // protected routes
           user?.email &&
           <>
             <Route path='/' element={<Form />} />
@@ -55,6 +57,8 @@ function App() {
             <Route path='/my-files' element={<MyFiles />} />
           </>
         }
+
+        {/* route for 404 pages */}
         <Route path='*' element={<NotFound />} />
       </Routes>
     </>

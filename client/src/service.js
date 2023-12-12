@@ -2,6 +2,11 @@ import axios from 'axios'
 
 const BASE_URL = "http://localhost:5000"
 
+/**
+ * api call function for signin service
+ * data is object with keys email and password
+ * 
+ */
 export const signin = (data) => {
     return axios.post(`${BASE_URL}/signin`, data)
         .then(res => {
@@ -14,10 +19,16 @@ export const signin = (data) => {
         })
 }
 
+/**
+ * api call function for signup service
+ * data is object with keys email and password
+ * 
+ */
 export const signup = (data) => {
     return axios.post(`${BASE_URL}/signup`, data)
         .then(res => {
             const { token, ...rest } = res?.data
+            // saving jwt token in local storage
             localStorage.setItem('token', token)
             return { data: rest, error: false }
         }).catch(err => {
@@ -26,6 +37,7 @@ export const signup = (data) => {
         })
 }
 
+// logout api call and remove token from localstorage response is success
 export const logout = () => {
     return axios.post(`${BASE_URL}/logout`, null, {
         headers: {
@@ -40,7 +52,14 @@ export const logout = () => {
     })
 }
 
-
+/**
+ * 
+ * get user details when page loads with jwt token
+ * stored in localstorage
+ *  
+ * @returns userdata(optional) and error(boolean value) 
+ * 
+ */
 export const getUser = async () => {
     return axios.get(`${BASE_URL}/user`, {
         headers: {
@@ -53,6 +72,13 @@ export const getUser = async () => {
     })
 }
 
+/**
+ * 
+ * @param {*} data include:
+ *          1) file: File object and
+ *          2) Pages: page numbers that seperated by commas
+ * @returns the new pdf file url and error
+ */
 export const uploadFile = (data) => {
     return axios.post(`${BASE_URL}/upload`, data, {
         headers: {
@@ -67,11 +93,17 @@ export const uploadFile = (data) => {
     })
 }
 
-export const getMyFiles = () => {
+/**
+ * 
+ * @param {*} signal => to stop api calling when component unmounted 
+ * @returns array of file urls and error(boolean value)
+ */
+export const getMyFiles = (signal) => {
     return axios.get(`${BASE_URL}/my-files`, {
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
+        },
+        signal
     }).then(res => {
         return {
             error: false,

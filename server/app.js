@@ -11,6 +11,7 @@ const { verifyToken } = require('./services/userService')
 const app = express()
 app.use(cors())
 
+// middleware for authentication
 app.use("/", async (req, res, next) => {
     if (
         req.url.startsWith("/signin") ||
